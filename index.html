@@ -57,6 +57,14 @@ Presiona espacio
 
 <script>
 
+  let canvas = document.getElementById("cakeCanvas");
+let ctx = canvas.getContext("2d");
+
+  canvas.width = 800;
+  canvas.height = 500;
+
+  let candlesLit = 0;
+  const totalCandles = 17;
 let started=false;
 
 document.getElementById("startButton").onclick=function(){
@@ -70,14 +78,6 @@ document.getElementById("instruction").style.opacity=1;
   drawCake();
 
 }
-  let canvas = document.getElementById("cakeCanvas");
-let ctx = canvas.getContext("2d");
-
-  canvas.width = 800;
-  canvas.height = 500;
-
-  let candlesLit = 0;
-  const totalCandles = 17;
 
   function drawCake(){
 
