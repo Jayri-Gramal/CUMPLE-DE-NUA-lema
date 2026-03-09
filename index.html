@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Happy Birthday!</title>
+
+<style>
+body{
+  margin:0;
+  background:black;
+  overflow:hidden;
+  font-family:sans-serif;
+  text-align:center;
+  color:white;
+}
+
+h1{
+  margin-top:20%;
+  font-size:60px;
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow{
+  from{color:#ff4da6;}
+  to{color:#ffff66;}
+}
+
+.confetti{
+  position:fixed;
+  width:10px;
+  height:10px;
+  animation:fall linear infinite;
+}
+
+@keyframes fall{
+  from{transform:translateY(-100px);}
+  to{transform:translateY(100vh);}
+}
+</style>
+</head>
+
+<body>
+
+<h1>🎉 Gratulerer med dagen! 🎂</h1>
+<p>Håper du får en fantastisk dag!</p>
+
+<script>
+for(let i=0;i<120;i++){
+  let c=document.createElement("div");
+  c.className="confetti";
+  c.style.left=Math.random()*100+"vw";
+  c.style.background=`hsl(${Math.random()*360},100%,50%)`;
+  c.style.width="8px";
+  c.style.height="8px";
+  c.style.animationDuration=(Math.random()*3+2)+"s";
+  document.body.appendChild(c);
+}
+</script>
+
+</body>
+</html>
