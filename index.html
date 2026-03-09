@@ -1,60 +1,67 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<title>Happy Birthday!</title>
+
+<meta charset="UTF-8">
+<title>Carta De Cumpleaños Nua</title>
 
 <style>
+
 body{
-  margin:0;
-  background:black;
-  overflow:hidden;
-  font-family:sans-serif;
-  text-align:center;
-  color:white;
+background:#111;
+color:white;
+font-family:sans-serif;
+margin:0;
+overflow:hidden;
+text-align:center;
 }
 
-h1{
-  margin-top:20%;
-  font-size:60px;
-  animation: glow 2s infinite alternate;
+#startButton{
+font-size:40px;
+padding:20px 40px;
+background:#ff4081;
+border:none;
+border-radius:10px;
+color:white;
+cursor:pointer;
+margin-top:40vh;
 }
 
-@keyframes glow{
-  from{color:#ff4da6;}
-  to{color:#ffff66;}
+#instruction{
+position:absolute;
+bottom:30px;
+width:100%;
+font-size:20px;
+opacity:0;
 }
 
-.confetti{
-  position:fixed;
-  width:10px;
-  height:10px;
-  animation:fall linear infinite;
-}
-
-@keyframes fall{
-  from{transform:translateY(-100px);}
-  to{transform:translateY(100vh);}
-}
 </style>
 </head>
 
 <body>
 
-<h1>🎉 Gratulerer med dagen! 🎂</h1>
-<p>Håper du får en fantastisk dag!</p>
+<button id="startButton">Aprieta aquí</button>
+
+<div id="instruction">
+Presiona espacio
+</div>
 
 <script>
-for(let i=0;i<120;i++){
-  let c=document.createElement("div");
-  c.className="confetti";
-  c.style.left=Math.random()*100+"vw";
-  c.style.background=`hsl(${Math.random()*360},100%,50%)`;
-  c.style.width="8px";
-  c.style.height="8px";
-  c.style.animationDuration=(Math.random()*3+2)+"s";
-  document.body.appendChild(c);
+
+let started=false;
+
+document.getElementById("startButton").onclick=function(){
+
+started=true;
+
+document.getElementById("startButton").style.display="none";
+
+document.getElementById("instruction").style.opacity=1;
+
 }
+
 </script>
 
 </body>
 </html>
+
