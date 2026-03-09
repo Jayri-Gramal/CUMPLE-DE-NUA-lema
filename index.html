@@ -44,7 +44,6 @@ body {
 <canvas id="cakeCanvas"></canvas>
 
 <script>
-// Vent til DOM er ferdig lastet
 window.onload = function() {
     const canvas = document.getElementById("cakeCanvas");
     const ctx = canvas.getContext("2d");
@@ -59,7 +58,8 @@ window.onload = function() {
 
     // Knapp-funksjon
     startButton.onclick = function() {
-        startButton.style.display = "none";
+        // Skjul knappen med visibility
+        startButton.style.visibility = "hidden";
         instruction.style.opacity = 1;
         drawCake();
     };
@@ -72,7 +72,6 @@ window.onload = function() {
         const x = canvas.width / 2 - cakeWidth / 2;
         const y = canvas.height / 2;
 
-        // Tegn kake
         ctx.fillStyle = "#ff9ecb";
         ctx.fillRect(x, y-20, cakeWidth, 20);
 
@@ -87,11 +86,9 @@ window.onload = function() {
             const cx = startX + i * spacing;
             const cy = y - 20;
 
-            // Lys
             ctx.fillStyle = "white";
             ctx.fillRect(cx, cy - 20, 6, 20);
 
-            // Flamme hvis tent
             if (i < candlesLit) {
                 ctx.fillStyle = "orange";
                 ctx.fillRect(cx + 1, cy - 26, 4, 6);
@@ -99,7 +96,6 @@ window.onload = function() {
         }
     }
 
-    // Space-tast for å tenne lys
     document.addEventListener("keydown", function(e) {
         if (e.code === "Space") {
             if (candlesLit < totalCandles) {
