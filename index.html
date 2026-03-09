@@ -1,113 +1,72 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
 <title>Carta De Cumpleaños Nua</title>
+
 <style>
-body {
-    background: #111;
-    color: white;
-    font-family: sans-serif;
-    margin: 0;
-    overflow: hidden;
-    text-align: center;
+
+body{
+background:#111;
+color:white;
+font-family:sans-serif;
+margin:0;
+overflow:hidden;
+text-align:center;
 }
-#startButton {
-    font-size: 40px;
-    padding: 20px 40px;
-    background: #ff4081;
-    border: none;
-    border-radius: 10px;
-    color: white;
-    cursor: pointer;
-    margin-top: 40vh;
+
+#startButton{
+font-size:40px;
+padding:20px 40px;
+background:#ff4081;
+border:none;
+border-radius:10px;
+color:white;
+cursor:pointer;
+margin-top:40vh;
 }
-#instruction {
-    position: absolute;
-    bottom: 30px;
-    width: 100%;
-    font-size: 20px;
-    opacity: 0;
+
+#instruction{
+position:absolute;
+bottom:30px;
+width:100%;
+font-size:20px;
+opacity:0;
 }
-#cakeCanvas {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-}
+
+  
 </style>
 </head>
+
 <body>
 
 <button id="startButton">Aprieta aquí</button>
-<div id="instruction">Presiona espacio</div>
+
+<div id="instruction">
+Presiona espacio
+</div>
+
 <canvas id="cakeCanvas"></canvas>
 
 <script>
-window.onload = function() {
-    const canvas = document.getElementById("cakeCanvas");
-    const ctx = canvas.getContext("2d");
-    canvas.width = 800;
-    canvas.height = 500;
 
-    const startButton = document.getElementById("startButton");
-    const instruction = document.getElementById("instruction");
+let started=false;
 
-    let candlesLit = 0;
-    const totalCandles = 17;
+document.getElementById("startButton").onclick=function(){
 
-    // Knapp-funksjon
-    startButton.onclick = function() {
-        // Skjul knappen med visibility
-        startButton.style.visibility = "hidden";
-        instruction.style.opacity = 1;
-        drawCake();
-    };
+started=true;
 
-    function drawCake() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+document.getElementById("startButton").style.display="none";
 
-        const cakeWidth = 500;
-        const cakeHeight = 120;
-        const x = canvas.width / 2 - cakeWidth / 2;
-        const y = canvas.height / 2;
+document.getElementById("instruction").style.opacity=1;
 
-        ctx.fillStyle = "#ff9ecb";
-        ctx.fillRect(x, y-20, cakeWidth, 20);
-
-        drawCandles(x, y);
-    }
-
-    function drawCandles(x, y) {
-        const spacing = 25;
-        const startX = x + 40;
-
-        for (let i = 0; i < totalCandles; i++) {
-            const cx = startX + i * spacing;
-            const cy = y - 20;
-
-            ctx.fillStyle = "white";
-            ctx.fillRect(cx, cy - 20, 6, 20);
-
-            if (i < candlesLit) {
-                ctx.fillStyle = "orange";
-                ctx.fillRect(cx + 1, cy - 26, 4, 6);
-            }
-        }
-    }
-
-    document.addEventListener("keydown", function(e) {
-        if (e.code === "Space") {
-            if (candlesLit < totalCandles) {
-                candlesLit++;
-                drawCake();
-            }
-        }
-    });
-};
+}
 </script>
 
 </body>
+  
+  
 </html>
 
 
