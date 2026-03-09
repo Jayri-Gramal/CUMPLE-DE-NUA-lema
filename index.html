@@ -56,31 +56,24 @@ Presiona espacio
 <canvas id="cakeCanvas"></canvas>
 
 <script>
-
-  let canvas = document.getElementById("cakeCanvas");
+let canvas = document.getElementById("cakeCanvas");
 let ctx = canvas.getContext("2d");
 
-  canvas.width = 800;
-  canvas.height = 500;
+canvas.width = 800;
+canvas.height = 500;
 
-  let candlesLit = 0;
-  const totalCandles = 17;
-let started=false;
+let started = false;
+let candlesLit = 0;
+const totalCandles = 17;
 
-document.getElementById("startButton").onclick=function(){
+document.getElementById("startButton").onclick = function() {
+    started = true;
+    document.getElementById("startButton").style.display = "none";
+    document.getElementById("instruction").style.opacity = 1;
+    drawCake();
+};
 
-started=true;
-
-document.getElementById("startButton").style.display="none";
-
-document.getElementById("instruction").style.opacity=1;
-
-  drawCake();
-
-}
-
-  function drawCake(){
-
+function drawCake() {
     ctx.clearRect(0,0,canvas.width,canvas.height);
     let cakeWidth = 500;
     let cakeHeight = 120;
@@ -92,41 +85,33 @@ document.getElementById("instruction").style.opacity=1;
     ctx.fillRect(x,y-20,cakeWidth,20);
 
     drawCandles(x,y);
+}
 
-  }
-
-  function drawCandles(x,y){
+function drawCandles(x,y){
     let spacing = 25;
     let startX = x + 40;
-    for(let i=0;i<totalCandles;i++){
+    for(let i=0; i<totalCandles; i++){
+        let cx = startX + i*spacing;
+        let cy = y-20;
 
-      let cx = startX + i*spacing;
-      let cy = y-20;
+        ctx.fillStyle = "white";
+        ctx.fillRect(cx,cy-20,6,20);
 
-      ctx.fillStyle = "white";
-      ctx.fillRect(cx,cy-20,6,20);
-
-      if(i < candlesLit){
-
-        ctx.fillStyle = "orange";
-        ctx.fillRect(cx+1,cy-26,4,6);
-
-      }
-
+        if(i < candlesLit){
+            ctx.fillStyle = "orange";
+            ctx.fillRect(cx+1,cy-26,4,6);
+        }
     }
+}
 
-  }
-
-  document.addEventListener("keydown",function(e){
+document.addEventListener("keydown", function(e){
     if(e.code === "Space"){
-      if(candlesLit < totalCandles){
-        candlesLit++;
-        drawCake();
-
-      }
+        if(candlesLit < totalCandles){
+            candlesLit++;
+            drawCake();
+        }
     }
-  });
-  
+});
 </script>
 
 </body>
