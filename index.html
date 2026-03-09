@@ -73,7 +73,7 @@ document.getElementById("instruction").style.opacity=1;
   let canvas = document.getElementById("cakeCanvas");
 let ctx = canvas.getContext("2d");
 
-  let canvas.with = 800;
+  let canvas.width = 800;
   canvas.height = 500;
 
   let candlesLit = 0;
@@ -81,14 +81,14 @@ let ctx = canvas.getContext("2d");
 
   function drawCake(){
 
-    ctx.clearReact(0,0,canvas.width,canvas.height);
+    ctx.clearRect(0,0,canvas.width,canvas.height);
     let cakeWidth = 500;
     let cakeHeight = 120;
 
     let x = canvas.width/2 - cakeWidth/2;
     let y = canvas.height/2;
 
-    ctx.fillStyle = ¨#ff9ecb¨;
+    ctx.fillStyle = "#ff9ecb";
     ctx.fillRect(x,y-20,cakeWidth,20);
 
     drawCandles(x,y);
@@ -98,17 +98,17 @@ let ctx = canvas.getContext("2d");
   function drawCandles(x,y){
     let spacing = 25;
     let startX = x + 40;
-    for(let i=0;i<tolalCandles;i++){
+    for(let i=0;i<totalCandles;i++){
 
       let cx = startX + i*spacing;
       let cy = y-20;
 
-      ctx.fillStyle = ¨wihite¨;
+      ctx.fillStyle = "white";
       ctx.fillRect(cx,cy-20,6,20);
 
       if(i < candlesLit){
 
-        ctx. fillStyle = ¨orange¨;
+        ctx. fillStyle = "orange";
         ctx.fillRect(cx+1,cy-26,4,6);
 
       }
@@ -117,8 +117,8 @@ let ctx = canvas.getContext("2d");
 
   }
 
-  document.addEventListener(¨keydown¨,function(e){
-    if(e.code === ¨Space¨){
+  document.addEventListener("keydown",function(e){
+    if(e.code === "Space"){
       if(candlesLit < totalCandles){
         candlesLit++;
         drawCake();
