@@ -35,6 +35,12 @@ font-size:20px;
 opacity:0;
 }
 
+canvas{
+  position:absolute;
+  top:0;
+  left:0;
+}
+
 </style>
 </head>
 
@@ -42,10 +48,9 @@ opacity:0;
 
 <button id="startButton">Aprieta aquí</button>
 
-<div id="instruction">
-Presiona la tecla espacio para encender las velas
-</div>
+<div id="instruction">Presiona la tecla espacio para encender las velas</div>
 
+  <canvas id="cakeCanvas"></canvas>
 <script>
 
 let started=false;
@@ -58,9 +63,205 @@ document.getElementById("startButton").style.display="none";
 
 document.getElementById("instruction").style.opacity=1;
 
+  let currentCandle = 0; // holder styr på hvilket lys som skal tennes
+const messages = [
+  "Feliz día 1!",
+  "Feliz día 2!",
+  "Feliz día 3!",
+  "Feliz día 4!",
+  "Feliz día 5!",
+  "Feliz día 6!",
+  "Feliz día 7!",
+  "Feliz día 8!",
+  "Feliz día 9!",
+  "Feliz día 10!",
+  "Feliz día 11!",
+  "Feliz día 12!",
+  "Feliz día 13!",
+  "Feliz día 14!",
+  "Feliz día 15!",
+  "Feliz día 16!",
+  "Feliz día 17!"
+];
+
+let floatingMessages = []; // holder aktive meldinger
+let confettis = [];
+let balloons = [];
+
+  document.addEventListener("keydown", function(e){
+  if(!started) return; // gjør ingenting hvis startknappen ikke er trykket
+  if(e.code === "Space"){ 
+    e.preventDefault();
+
+    if(currentCandle < candles.length){
+      // Tenn neste lys
+      candles[currentCandle].lit = true;
+
+      // Legg til flytende melding
+      floatingMessages.push({
+        text: messages[currentCandle],
+        x: canvas.width/2,
+        y: cake.y - cake.height - 60,
+        alpha: 1,
+        timer: 0
+      });
+
+      // Legg til ballonger
+      for(let i=0;i<10;i++){
+        balloons.push({
+          x: canvas.width/2 + (Math.random()-0.5)*200,
+          y: cake.y - cake.height - 60,
+          radius: 10 + Math.random()*10,
+          color: `hsl(${Math.random()*360},100%,50%)`,
+          speed: 1 + Math.random()*2
+        });
+      }
+
+      // Legg til konfetti
+      for(let i=0;i<30;i++){
+        confettis.push({
+          x: Math.random()*canvas.width,
+          y: cake.y - cake.height - 60,
+          size: 5 + Math.random()*5,
+          color: `hsl(${Math.random()*360},100%,50%)`,
+          speedY: 2 + Math.random()*2,
+          speedX: (Math.random()-0.5)*2
+        });
+      }
+
+      currentCandle++;
+    } else {
+      // Siste trykk → blåse ut lys og starte fyrverkeri og bilder
+      candles.forEach(c=>c.lit=false);
+      startFinalFireworks();
+    }
+  }
+});
+  
+  drawCake();
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  // Kake bunn
+  ctx.fillStyle = cake.color;
+  ctx.strokeStyle = cake.borderColor;
+  ctx.lineWidth = 4;
+  ctx.fillRect(cake.x - cake.width/2, cake.y - cake.height, cake.width, cake.height);
+  ctx.strokeRect(cake.x - cake.width/2, cake.y - cake.height, cake.width, cake.height);
+
+  // Tulipaner
+  for(let i=0;i<5;i++){
+    ctx.fillStyle="#ff66b2";
+    ctx.beginPath();
+    ctx.arc(cake.x - cake.width/2 + (i+1)*(cake.width/6), cake.y - cake.height - 10, 10, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // Lys
+  candles.forEach(c=>{
+    ctx.fillStyle = c.lit ? "yellow":"#ccc";
+    ctx.fillRect(c.x-c.width/2, c.y-c.height, c.width, c.height);
+  });
+
+  // Flytende meldinger
+  floatingMessages.forEach((m,i)=>{
+    ctx.globalAlpha = m.alpha;
+    ctx.fillStyle = "#ff69b4";
+    ctx.font = "30px sans-serif";
+    ctx.fillText(m.text, m.x - ctx.measureText(m.text).width/2, m.y);
+    ctx.globalAlpha = 1;
+
+    // Oppdater timer
+    m.timer++;
+    if(m.timer > 600){ // ca 10 sek på 60fps
+      floatingMessages.splice(i,1);
+    }
+  });
+
+  // Ballonger
+  balloons.forEach((b,i)=>{
+    b.y -= b.speed;
+    ctx.fillStyle = b.color;
+    ctx.beginPath();
+    ctx.arc(b.x,b.y,b.radius,0,Math.PI*2);
+    ctx.fill();
+    if(b.y + b.radius < 0) balloons.splice(i,1);
+  });
+
+  // Konfetti
+  confettis.forEach((c,i)=>{
+    c.x += c.speedX;
+    c.y += c.speedY;
+    ctx.fillStyle = c.color;
+    ctx.fillRect(c.x,c.y,c.size,c.size);
+    if(c.y > canvas.height) confettis.splice(i,1);
+  });
 }
 
+}
+
+  // --- CANVAS ---
+const canvas = document.getElementById("cakeCanvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+// --- KAKEDATA ---
+const cake = {
+  x: canvas.width/2,
+  y: canvas.height*0.65,
+  width: 300,
+  height: 200,
+  color: "#fff",
+  borderColor: "#ff99cc"
+};
+
+const candles = [];
+const candleCount = 17;
+
+for(let i=0;i<candleCount;i++){
+  candles.push({
+    x: cake.x - cake.width/2 + (i+0.5)*(cake.width/candleCount),
+    y: cake.y - cake.height - 20,
+    width:10,
+    height:20,
+    lit:false
+  });
+}
+
+// --- FUNKSJON FOR Å TEGNE KAKE ---
+function drawCake(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  // Kake bunn
+  ctx.fillStyle = cake.color;
+  ctx.strokeStyle = cake.borderColor;
+  ctx.lineWidth = 4;
+  ctx.fillRect(cake.x - cake.width/2, cake.y - cake.height, cake.width, cake.height);
+  ctx.strokeRect(cake.x - cake.width/2, cake.y - cake.height, cake.width, cake.height);
+
+  // Tulipaner
+  for(let i=0;i<5;i++){
+    ctx.fillStyle="#ff66b2";
+    ctx.beginPath();
+    ctx.arc(cake.x - cake.width/2 + (i+1)*(cake.width/6), cake.y - cake.height - 10, 10, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // Lys
+  candles.forEach(c=>{
+    ctx.fillStyle = c.lit ? "yellow":"#ccc";
+    ctx.fillRect(c.x-c.width/2, c.y-c.height, c.width, c.height);
+  });
+}
+  function animate(){
+  drawCake();
+  requestAnimationFrame(animate);
+}
+
+animate();
 </script>
+  
 
 </body>
 </html>
