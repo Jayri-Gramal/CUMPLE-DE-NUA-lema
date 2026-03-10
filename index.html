@@ -102,27 +102,115 @@ document.getElementById("instruction").style.opacity=1;
 
   //funksjon for å tegne kaken
   function drawCake(){
-  //kake bunn
-  ctx.fillStyle = cake.color;
-  ctx.strokeStyle = cake.borderColor;
-  ctx.lineWidth = 4;
-  ctx.fillRect(cake.x - cake.width/2, cake.y - cake.height, cake.width, cake.height);
-  ctx.strokeRect(cake.x - cake.width/2, cake.y - cake.height, cake.width, cake.height);
+ // nederste kake
+ctx.fillStyle = cake.color;
+ctx.strokeStyle = cake.borderColor;
+ctx.lineWidth = 4;
 
-  //tegn tulipaner (enkelt)
-  for(let i=0;i<5;i++){
-    ctx.fillStyle="#ff66b2";
-    ctx.beginPath();
-    ctx.arc(cake.x - cake.width/2 + (i+1)*(cake.width/6), cake.y - cake.height - 10, 10, 0, Math.PI*2);
-    ctx.fill();
-  }
+ctx.fillRect(
+cake.x - cake.width/2,
+cake.y - cake.height,
+cake.width,
+cake.height
+);
 
-  // tegn lys
-  candles.forEach(c=>{
-    ctx.fillStyle = c.lit ? "yellow":"#ccc";
-    ctx.fillRect(c.x-c.width/2, c.y-c.height, c.width, c.height);
-  });
-  }
+ctx.strokeRect(
+cake.x - cake.width/2,
+cake.y - cake.height,
+cake.width,
+cake.height
+);
+
+
+// øverste kake-etasje
+const topWidth = cake.width * 0.6;
+const topHeight = cake.height * 0.6;
+
+ctx.fillStyle = cake.color;
+
+ctx.fillRect(
+cake.x - topWidth/2,
+cake.y - cake.height - topHeight + 10,
+topWidth,
+topHeight
+);
+
+ctx.strokeRect(
+cake.x - topWidth/2,
+cake.y - cake.height - topHeight + 10,
+topWidth,
+topHeight
+);
+
+
+// rosa frosting dekorasjon
+ctx.fillStyle = "#ffb6d9";
+
+for(let i=0;i<12;i++){
+
+ctx.beginPath();
+
+ctx.arc(
+cake.x - cake.width/2 + i*(cake.width/11),
+cake.y - cake.height,
+8,
+0,
+Math.PI
+);
+
+ctx.fill();
+
+}
+
+
+// tulipaner
+for(let i=0;i<6;i++){
+
+let x = cake.x - topWidth/2 + (i+1)*(topWidth/7);
+let y = cake.y - cake.height - topHeight + 10;
+
+ctx.fillStyle="#ff66b2";
+
+ctx.beginPath();
+ctx.arc(x,y,8,0,Math.PI*2);
+ctx.fill();
+
+// blader
+ctx.strokeStyle="#4CAF50";
+
+ctx.beginPath();
+ctx.moveTo(x,y+8);
+ctx.lineTo(x,y+18);
+ctx.stroke();
+
+}
+
+
+// lys
+candles.forEach(c=>{
+
+ctx.fillStyle = "#ffffff";
+
+ctx.fillRect(
+c.x-c.width/2,
+c.y-c.height,
+c.width,
+c.height
+);
+
+if(c.lit){
+
+ctx.fillStyle="orange";
+
+ctx.beginPath();
+ctx.arc(c.x,c.y-c.height-5,5,0,Math.PI*2);
+ctx.fill();
+
+}
+
+});
+
+}
   drawCake();
   </script>
 
