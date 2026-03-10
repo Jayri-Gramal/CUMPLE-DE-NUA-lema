@@ -67,6 +67,7 @@ document.getElementById("startButton").style.display="none";
 
 document.getElementById("instruction").style.opacity=1;
 
+  drawScen();
 }
 
  
@@ -100,6 +101,150 @@ document.getElementById("instruction").style.opacity=1;
     });
   }
 
+  let currentCandle = 0;
+
+  const messages = [
+
+"✨ Un deseo para ti",
+"🌸 Que tengas un día hermoso",
+"🎉 Hoy celebramos a Nua",
+"💖 Que la felicidad te acompañe",
+"🌷 Un año más increíble",
+"🎈 Sonríe mucho hoy",
+"💫 Que todos tus sueños crezcan",
+"🌟 Eres muy especial",
+"🎂 Disfruta cada momento",
+"💗 Te mereces lo mejor",
+"🎊 Celebra con alegría",
+"🌺 Un día mágico para ti",
+"🎁 Muchas sorpresas hoy",
+"🌈 Que tu vida sea colorida",
+"💞 Rodeada de amor",
+"🎉 Momentos inolvidables",
+"✨ Felicidades Nua"
+    ];
+  document.addEventListener("keydown", function(e){
+
+    if(!started) return;
+
+    if(e.code === "Space" && currentCandle < candles.length){
+      candles[currentCandle].lit = true;
+
+      drawScene();
+      showMessage(messages[currentCandle]);
+
+      spawnBalloons();
+     
+      spawnConfetti();
+   
+      currentCandle++;
+
+    }
+  });
+
+  function drawScene){
+    ctx.celearRect(0,0,canvas.width,canvas.height);
+
+    drawCake();
+  }
+
+  function showMessage(text){
+
+const msg = document.createElement("div");
+
+msg.innerText = text;
+
+msg.style.position="absolute";
+msg.style.left="50%";
+msg.style.top="80%";
+msg.style.transform="translate(-50%,0)";
+
+msg.style.fontSize="40px";
+msg.style.color="white";
+msg.style.fontWeight="bold";
+
+msg.style.transition="top 3s";
+
+document.body.appendChild(msg);
+
+setTimeout(()=>{
+msg.style.top="40%";
+},50);
+
+setTimeout(()=>{
+msg.remove();
+},10000);
+
+}
+
+function spawnBalloons(){
+
+for(let i=0;i<12;i++){
+
+let b=document.createElement("div");
+
+b.style.position="absolute";
+
+b.style.width="25px";
+b.style.height="35px";
+
+b.style.borderRadius="50%";
+
+b.style.background=`hsl(${Math.random()*360},70%,60%)`;
+
+b.style.left=Math.random()*window.innerWidth+"px";
+
+b.style.bottom="0px";
+
+b.style.transition="bottom 6s linear";
+
+document.body.appendChild(b);
+
+setTimeout(()=>{
+b.style.bottom="120%";
+},50);
+
+setTimeout(()=>{
+b.remove();
+},6000);
+
+}
+
+}
+
+function spawnConfetti(){
+
+for(let i=0;i<50;i++){
+
+let c=document.createElement("div");
+
+c.style.position="absolute";
+
+c.style.width="6px";
+c.style.height="6px";
+
+c.style.background=`hsl(${Math.random()*360},80%,60%)`;
+
+c.style.left=Math.random()*window.innerWidth+"px";
+
+c.style.top="0px";
+
+c.style.transition="top 4s linear";
+
+document.body.appendChild(c);
+
+setTimeout(()=>{
+c.style.top="100%";
+},50);
+
+setTimeout(()=>{
+c.remove();
+},4000);
+
+}
+
+}
+      
   //funksjon for å tegne kaken
   function drawCake(){
  // nederste kake
