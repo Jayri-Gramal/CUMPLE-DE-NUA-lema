@@ -1,21 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+
 <meta charset="UTF-8">
-<title>Cumple Nua</title>
+<title>Cumpleaños Nua</title>
 
 <style>
 
 body{
 background:#111;
 color:white;
+font-family:sans-serif;
 margin:0;
 overflow:hidden;
-font-family:sans-serif;
 text-align:center;
 }
 
-button{
+#startButton{
 font-size:40px;
 padding:20px 40px;
 background:#ff4081;
@@ -26,68 +27,461 @@ cursor:pointer;
 margin-top:40vh;
 }
 
-canvas{
+#instruction{
+position:absolute;
+bottom:30px;
+width:100%;
+font-size:20px;
+opacity:0;
+}
+
+#cakeCanvas{
 position:absolute;
 top:0;
 left:0;
 }
 
 </style>
-
+  
 </head>
 
 <body>
 
-<button id="start">Aprieta aquí</button>
+<button id="startButton">Aprieta aquí</button>
 
-<canvas id="canvas"></canvas>
+<div id="instruction">
+Presiona espacio para encender las velas
+</div>
+
+<canvas id="cakeCanvas"></canvas>
 
 <script>
 
-const canvas=document.getElementById("canvas")
-const ctx=canvas.getContext("2d")
+let started=false;
+let finished=false;
 
-canvas.width=window.innerWidth
-canvas.height=window.innerHeight
+document.getElementById("startButton").onclick=function(){
 
-let started=false
+started=true;
 
-const cake={
-x:canvas.width/2,
-y:canvas.height*0.8,
+document.getElementById("startButton").style.display="none";
+document.getElementById("instruction").style.opacity=1;
+
+drawScene();
+
+}
+
+const canvas = document.getElementById("cakeCanvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const cake = {
+x: canvas.width/2,
+y: canvas.height*0.78,
 width:300,
-height:200
+height:200,
+color:"#fff",
+borderColor:"#ff99cc"
 }
 
-document.getElementById("start").onclick=()=>{
-started=true
-document.getElementById("start").style.display="none"
+const candles=[];
+const candleCount=17;
+
+for(let i=0;i<candleCount;i++){
+
+candles.push({
+x: cake.x - cake.width/2 + (i+0.5)*(cake.width/candleCount),
+y: cake.y - cake.height,
+width:10,
+height:20,
+lit:false
+});
+
 }
 
-function drawCake(){
+let currentCandle=0;
 
-ctx.fillStyle="white"
-ctx.fillRect(cake.x-cake.width/2,cake.y-cake.height,cake.width,cake.height)
+const messages=[
 
-ctx.strokeStyle="pink"
-ctx.lineWidth=4
-ctx.strokeRect(cake.x-cake.width/2,cake.y-cake.height,cake.width,cake.height)
+"✨ Un deseo para ti",
+"🌸 Que tengas un día hermoso",
+"🎉 Hoy celebramos a Nua",
+"💖 Que la felicidad te acompañe",
+"🌷 Un año más increíble",
+"🎈 Sonríe mucho hoy",
+"💫 Que todos tus sueños crezcan",
+"🌟 Eres muy especial",
+"🎂 Disfruta cada momento",
+"💗 Te mereces lo mejor",
+"🎊 Celebra con alegría",
+"🌺 Un día mágico para ti",
+"🎁 Muchas sorpresas hoy",
+"🌈 Que tu vida sea colorida",
+"💞 Rodeada de amor",
+"🎉 Momentos inolvidables",
+"✨ Felicidades Nua"
+
+];
+
+document.addEventListener("keydown",function(e){
+
+if(!started) return;
+
+if(e.code==="Space" && currentCandle<candles.length){
+
+candles[currentCandle].lit=true;
+
+showMessage(messages[currentCandle]);
+
+spawnBalloons();
+spawnConfetti();
+
+currentCandle++;
+
+}
+
+else if(e.code==="Space" && currentCandle===candles.length && !finished){
+
+finished=true;
+finalCelebration();
+
+}
+
+});
+
+function finalCelebration(){
+
+blowOutCandles();
+
+startHeartFireworks();
+
+for(let i=0;i<30;i++){
+spawnBalloons();
+}
+
+showPhotos();
+
+}
+
+function blowOutCandles(){
+
+candles.forEach(c=>{
+c.lit=false;
+});
+
+}
+
+function drawScene(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+if(started){
+drawCake();
+}
 
 }
 
 function animate(){
 
-ctx.clearRect(0,0,canvas.width,canvas.height)
+drawScene();
 
-if(started){
-drawCake()
-}
-
-requestAnimationFrame(animate)
+requestAnimationFrame(animate);
 
 }
 
-animate()
+animate();
+
+function drawCake(){
+
+ctx.fillStyle=cake.color;
+ctx.strokeStyle=cake.borderColor;
+ctx.lineWidth=4;
+
+ctx.fillRect(
+cake.x-cake.width/2,
+cake.y-cake.height,
+cake.width,
+cake.height
+);
+
+ctx.strokeRect(
+cake.x-cake.width/2,
+cake.y-cake.height,
+cake.width,
+cake.height
+);
+
+const topWidth=cake.width*0.6;
+const topHeight=cake.height*0.6;
+
+ctx.fillRect(
+cake.x-topWidth/2,
+cake.y-cake.height-topHeight+10,
+topWidth,
+topHeight
+);
+
+ctx.strokeRect(
+cake.x-topWidth/2,
+cake.y-cake.height-topHeight+10,
+topWidth,
+topHeight
+);
+
+ctx.fillStyle="#ffb6d9";
+
+for(let i=0;i<12;i++){
+
+ctx.beginPath();
+
+ctx.arc(
+cake.x-cake.width/2 + i*(cake.width/11),
+cake.y-cake.height,
+8,
+0,
+Math.PI
+);
+
+ctx.fill();
+
+}
+
+for(let i=0;i<6;i++){
+
+let x=cake.x-topWidth/2+(i+1)*(topWidth/7);
+let y=cake.y-cake.height-topHeight+10;
+
+ctx.fillStyle="#ff66b2";
+
+ctx.beginPath();
+ctx.arc(x,y,8,0,Math.PI*2);
+ctx.fill();
+
+ctx.strokeStyle="#4CAF50";
+
+ctx.beginPath();
+ctx.moveTo(x,y+8);
+ctx.lineTo(x,y+18);
+ctx.stroke();
+
+}
+
+candles.forEach(c=>{
+
+ctx.fillStyle="#fff";
+
+ctx.fillRect(
+c.x-c.width/2,
+c.y-c.height,
+c.width,
+c.height
+);
+
+if(c.lit){
+
+let flicker=Math.random()*3;
+
+ctx.fillStyle="orange";
+
+ctx.beginPath();
+ctx.ellipse(
+c.x,
+c.y-c.height-8,
+4+flicker,
+8+flicker,
+0,
+0,
+Math.PI*2
+);
+ctx.fill();
+
+ctx.fillStyle="yellow";
+
+ctx.beginPath();
+ctx.ellipse(
+c.x,
+c.y-c.height-8,
+2+flicker/2,
+5+flicker/2,
+0,
+0,
+Math.PI*2
+);
+ctx.fill();
+
+}
+
+});
+
+}
+
+function showMessage(text){
+
+const msg=document.createElement("div");
+
+msg.innerText=text;
+
+msg.style.position="absolute";
+msg.style.left="50%";
+msg.style.top="80%";
+msg.style.transform="translate(-50%,0)";
+msg.style.fontSize="40px";
+msg.style.fontWeight="bold";
+msg.style.color="white";
+msg.style.transition="top 3s";
+
+document.body.appendChild(msg);
+
+setTimeout(()=>{
+msg.style.top="40%";
+},50);
+
+setTimeout(()=>{
+msg.remove();
+},10000);
+
+}
+
+function spawnBalloons(){
+
+for(let i=0;i<12;i++){
+
+let container=document.createElement("div");
+
+container.style.position="absolute";
+container.style.left=Math.random()*window.innerWidth+"px";
+container.style.bottom="0px";
+container.style.transition="bottom 6s linear";
+
+document.body.appendChild(container);
+
+let b=document.createElement("div");
+
+b.style.width="25px";
+b.style.height="35px";
+b.style.borderRadius="50%";
+b.style.background=`hsl(${Math.random()*360},70%,60%)`;
+
+container.appendChild(b);
+
+let string=document.createElement("div");
+
+string.style.width="2px";
+string.style.height="40px";
+string.style.background="#aaa";
+string.style.margin="0 auto";
+
+container.appendChild(string);
+
+setTimeout(()=>{
+container.style.bottom="120%";
+},50);
+
+setTimeout(()=>{
+container.remove();
+},6000);
+
+}
+
+}
+
+function spawnConfetti(){
+
+for(let i=0;i<50;i++){
+
+let c=document.createElement("div");
+
+c.style.position="absolute";
+c.style.width="6px";
+c.style.height="6px";
+
+c.style.background=`hsl(${Math.random()*360},80%,60%)`;
+
+c.style.left=Math.random()*window.innerWidth+"px";
+
+c.style.top="0px";
+
+c.style.transition="top 4s linear";
+
+document.body.appendChild(c);
+
+setTimeout(()=>{
+c.style.top="100%";
+},50);
+
+setTimeout(()=>{
+c.remove();
+},4000);
+
+}
+
+}
+
+function startHeartFireworks(){
+
+setInterval(()=>{
+
+for(let i=0;i<20;i++){
+
+let p=document.createElement("div");
+
+p.innerHTML="💖";
+
+p.style.position="absolute";
+p.style.left=window.innerWidth/2+"px";
+p.style.top=window.innerHeight/2+"px";
+p.style.fontSize="20px";
+p.style.transition="all 2s ease-out";
+
+document.body.appendChild(p);
+
+let angle=Math.random()*Math.PI*2;
+let distance=200+Math.random()*200;
+
+let x=Math.cos(angle)*distance;
+let y=Math.sin(angle)*distance;
+
+setTimeout(()=>{
+p.style.transform=`translate(${x}px,${y}px)`;
+},50);
+
+setTimeout(()=>{
+p.remove();
+},2000);
+
+}
+
+},800);
+
+}
+
+function showPhotos(){
+
+const photos=["foto1.jpg","foto2.jpg","foto3.jpg"];
+
+photos.forEach(src=>{
+
+let img=document.createElement("img");
+
+img.src=src;
+
+img.style.position="absolute";
+img.style.width="200px";
+img.style.left=Math.random()*window.innerWidth+"px";
+img.style.bottom="-200px";
+img.style.transition="bottom 8s linear";
+
+document.body.appendChild(img);
+
+setTimeout(()=>{
+img.style.bottom="120%";
+},100);
+
+});
+
+}
 
 </script>
 
