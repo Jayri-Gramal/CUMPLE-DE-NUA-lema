@@ -364,6 +364,7 @@ ctx.fillStyle=cake.color;
 ctx.strokeStyle=cake.borderColor;
 ctx.lineWidth=4;
 
+// nederste etasje
 ctx.fillRect(
 cake.x-cake.width/2,
 cake.y-cake.height,
@@ -378,34 +379,17 @@ cake.width,
 cake.height
 );
 
+// krem nederst
+drawCream(
+cake.x,
+cake.y - cake.height,
+cake.width
+);
+
+// midterste etasje
 const topWidth=cake.width*0.6;
 const topHeight=cake.height*0.6;
 
-ctx.fillStyle="white";
-
-for(let i=0;i<12;i++){
-ctx.fillRect(
-cake.x - cake.width/2 + i*(cake.width/12),
-cake.y - cake.height/2,
-6,
-12
-);
-}
-
-  
-ctx.fillStyle="#ff99cc";
-
-for(let i=0;i<10;i++){
-let dripX = cake.x - cake.width/2 + i*(cake.width/10);
-let dripHeight = 10 + Math.random()*20;
-
-ctx.beginPath();
-ctx.arc(dripX, cake.y - cake.height, 10, 0, Math.PI, false);
-ctx.fill();
-
-ctx.fillRect(dripX-10, cake.y - cake.height, 20, dripHeight);
-}
-  
 ctx.fillRect(
 cake.x-topWidth/2,
 cake.y-cake.height-topHeight,
@@ -420,7 +404,15 @@ topWidth,
 topHeight
 );
 
-  const top2Width=cake.width*0.35;
+// krem midt
+drawCream(
+cake.x,
+cake.y - cake.height - topHeight,
+topWidth
+);
+
+// øverste etasje
+const top2Width=cake.width*0.35;
 const top2Height=cake.height*0.5;
 
 ctx.fillRect(
@@ -437,6 +429,14 @@ top2Width,
 top2Height
 );
 
+// krem topp
+drawCream(
+cake.x,
+cake.y - cake.height - topHeight - top2Height,
+top2Width
+);
+
+// jordbær på toppen
 for(let i=0;i<5;i++){
 
 let x = cake.x - 80 + i*40;
@@ -447,14 +447,13 @@ ctx.beginPath();
 ctx.arc(x, y, 8, 0, Math.PI*2);
 ctx.fill();
 
-// blad
 ctx.fillStyle="green";
 ctx.beginPath();
 ctx.arc(x, y-6, 5, 0, Math.PI);
 ctx.fill();
-
 }
-  
+
+// lys
 candles.forEach(c=>{
 
 ctx.fillStyle="#ffffff";
@@ -467,19 +466,16 @@ c.height
 );
 
 if(c.lit){
-
 ctx.fillStyle="orange";
 
 ctx.beginPath();
 ctx.arc(c.x,c.y-c.height-5,5,0,Math.PI*2);
 ctx.fill();
-
 }
 
 });
 
 }
-
 
 
 </script>
