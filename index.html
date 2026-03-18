@@ -400,135 +400,135 @@ ctx.fill();
   
 function drawCake(){
 
-ctx.fillStyle=cake.color;
-ctx.strokeStyle=cake.borderColor;
-ctx.lineWidth=4;
+    ctx.fillStyle=cake.color;
+    ctx.strokeStyle=cake.borderColor;
+    ctx.lineWidth=4;
 
-// nederste etasje
-ctx.fillRect(
-cake.x-cake.width/2,
-cake.y-cake.height,
-cake.width,
-cake.height
-);
+    // nederste etasje
+    ctx.fillRect(
+        cake.x-cake.width/2,
+        cake.y-cake.height,
+        cake.width,
+        cake.height
+    );
 
-ctx.strokeRect(
-cake.x-cake.width/2,
-cake.y-cake.height,
-cake.width,
-cake.height
-);
+    ctx.strokeRect(
+        cake.x-cake.width/2,
+        cake.y-cake.height,
+        cake.width,
+        cake.height
+    );
 
-// legg til tulipaner på nederste etasje
-ctx.font = "30px serif"; // størrelsen på emoji
-ctx.textAlign = "center"; // sentrerer emojien på x
-ctx.textBaseline = "bottom"; // baserer på bunnen av kaken
+    // krem nederst
+    drawCream(
+        cake.x,
+        cake.y - cake.height,
+        cake.width
+    );
 
-const tulipCount = 6; // antall tulipaner
-const startX = cake.x - cake.width / 2 + cake.width / (tulipCount * 2); // start litt inn fra venstre
-const stepX = cake.width / tulipCount; // avstand mellom hver tulipan
-const y = cake.y; // bunnen av nederste etasje
+    // legg til tulipaner på nederste etasje
+    ctx.font = "30px serif"; // størrelsen på emoji
+    ctx.textAlign = "center"; // sentrerer emojien på x
+    ctx.textBaseline = "bottom"; // bunnen av kaken
 
-for(let i = 0; i < tulipCount; i++){
-    let x = startX + i * stepX;
-    ctx.fillText("🌷", x, y);
-  
-// krem nederst
-drawCream(
-cake.x,
-cake.y - cake.height,
-cake.width
-);
+    const tulipCount = 6; 
+    const startX = cake.x - cake.width / 2 + cake.width / (tulipCount * 2);
+    const stepX = cake.width / tulipCount;
+    const y = cake.y; // bunnen av nederste etasje
 
-// midterste etasje
-const topWidth=cake.width*0.6;
-const topHeight=cake.height*0.6;
+    for(let i = 0; i < tulipCount; i++){
+        let x = startX + i * stepX;
+        ctx.fillText("🌷", x, y);
+    }
 
-ctx.fillRect(
-cake.x-topWidth/2,
-cake.y-cake.height-topHeight,
-topWidth,
-topHeight
-);
+    // midterste etasje
+    const topWidth=cake.width*0.6;
+    const topHeight=cake.height*0.6;
 
-ctx.strokeRect(
-cake.x-topWidth/2,
-cake.y-cake.height-topHeight,
-topWidth,
-topHeight
-);
+    ctx.fillRect(
+        cake.x-topWidth/2,
+        cake.y-cake.height-topHeight,
+        topWidth,
+        topHeight
+    );
 
-// krem midt
-drawCream(
-cake.x,
-cake.y - cake.height - topHeight,
-topWidth
-);
+    ctx.strokeRect(
+        cake.x-topWidth/2,
+        cake.y-cake.height-topHeight,
+        topWidth,
+        topHeight
+    );
 
-// øverste etasje
-const top2Width=cake.width*0.35;
-const top2Height=cake.height*0.5;
+    // krem midt
+    drawCream(
+        cake.x,
+        cake.y - cake.height - topHeight,
+        topWidth
+    );
 
-ctx.fillRect(
-cake.x-top2Width/2,
-cake.y-cake.height-topHeight-top2Height,
-top2Width,
-top2Height
-);
+    // øverste etasje
+    const top2Width=cake.width*0.35;
+    const top2Height=cake.height*0.5;
 
-ctx.strokeRect(
-cake.x-top2Width/2,
-cake.y-cake.height-topHeight-top2Height,
-top2Width,
-top2Height
-);
+    ctx.fillRect(
+        cake.x-top2Width/2,
+        cake.y-cake.height-topHeight-top2Height,
+        top2Width,
+        top2Height
+    );
 
-// krem topp
-drawCream(
-cake.x,
-cake.y - cake.height - topHeight - top2Height,
-top2Width
-);
+    ctx.strokeRect(
+        cake.x-top2Width/2,
+        cake.y-cake.height-topHeight-top2Height,
+        top2Width,
+        top2Height
+    );
 
-// jordbær på toppen
-for(let i=0;i<5;i++){
+    // krem topp
+    drawCream(
+        cake.x,
+        cake.y - cake.height - topHeight - top2Height,
+        top2Width
+    );
 
-let x = cake.x - 80 + i*40;
-let y = cake.y - cake.height - topHeight - top2Height - 10;
+    // jordbær på toppen
+    for(let i=0;i<5;i++){
 
-ctx.fillStyle="red";
-ctx.beginPath();
-ctx.arc(x, y, 8, 0, Math.PI*2);
-ctx.fill();
+        let x = cake.x - 80 + i*40;
+        let y = cake.y - cake.height - topHeight - top2Height - 10;
 
-ctx.fillStyle="green";
-ctx.beginPath();
-ctx.arc(x, y-6, 5, 0, Math.PI);
-ctx.fill();
-}
+        ctx.fillStyle="red";
+        ctx.beginPath();
+        ctx.arc(x, y, 8, 0, Math.PI*2);
+        ctx.fill();
 
-// lys
-candles.forEach(c=>{
+        ctx.fillStyle="green";
+        ctx.beginPath();
+        ctx.arc(x, y-6, 5, 0, Math.PI);
+        ctx.fill();
+    }
 
-ctx.fillStyle="#40E0D0";
+    // lys
+    candles.forEach(c=>{
 
-ctx.fillRect(
-c.x-c.width/2,
-c.y-c.height,
-c.width,
-c.height
-);
+        ctx.fillStyle="#40E0D0";
 
-if(c.lit){
-ctx.fillStyle="orange";
+        ctx.fillRect(
+            c.x-c.width/2,
+            c.y-c.height,
+            c.width,
+            c.height
+        );
 
-ctx.beginPath();
-ctx.arc(c.x,c.y-c.height-5,5,0,Math.PI*2);
-ctx.fill();
-}
+        if(c.lit){
+            ctx.fillStyle="orange";
 
-});
+            ctx.beginPath();
+            ctx.arc(c.x,c.y-c.height-5,5,0,Math.PI*2);
+            ctx.fill();
+        }
 
+    });
 }
 
 
