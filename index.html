@@ -380,7 +380,7 @@ ctx.fillRect(dripX, y+25, 20, dripLength);
 }
 
 // STRØSSEL på toppen (på hvit krem)
-const colors=["red","blue","yellow","green","purple"];
+const colors=["red","blue","yellow","purple"];
 
 for(let i=0;i<50;i++){
 ctx.fillStyle=colors[Math.floor(Math.random()*colors.length)];
@@ -509,26 +509,53 @@ function drawCake(){
     }
 
     // lys
-    candles.forEach(c=>{
+    function setupCandles(){
 
-        ctx.fillStyle="#40E0D0";
+    candles.length = 0; // tøm gamle lys
 
-        ctx.fillRect(
-            c.x-c.width/2,
-            c.y-c.height,
-            c.width,
-            c.height
-        );
+    // NEDERSTE ETASJE - 9 lys
+    const bottomCount = 9;
+    const bottomY = cake.y - cake.height;
+    for(let i=0; i<bottomCount; i++){
+        candles.push({
+            x: cake.x - cake.width/2 + (i+0.5)*(cake.width/bottomCount),
+            y: bottomY,
+            width: 10,
+            height: 20,
+            lit: false
+        });
+    }
 
-        if(c.lit){
-            ctx.fillStyle="orange";
+    // MIDTERSTE ETASJE - 5 lys
+    const midWidth = cake.width*0.6;
+    const midHeight = cake.height*0.6;
+    const midCount = 5;
+    const midY = cake.y - cake.height - midHeight;
+    for(let i=0; i<midCount; i++){
+        candles.push({
+            x: cake.x - midWidth/2 + (i+0.5)*(midWidth/midCount),
+            y: midY,
+            width: 10,
+            height: 20,
+            lit: false
+        });
+    }
 
-            ctx.beginPath();
-            ctx.arc(c.x,c.y-c.height-5,5,0,Math.PI*2);
-            ctx.fill();
-        }
+    // ØVERSTE ETASJE - 3 lys
+    const top2Width = cake.width*0.35;
+    const top2Height = cake.height*0.5;
+    const topCount = 3;
+    const topY = cake.y - cake.height - midHeight - top2Height;
+    for(let i=0; i<topCount; i++){
+        candles.push({
+            x: cake.x - top2Width/2 + (i+0.5)*(top2Width/topCount),
+            y: topY,
+            width: 10,
+            height: 20,
+            lit: false
+        });
+    }
 
-    });
 }
 
 
