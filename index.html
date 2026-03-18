@@ -348,20 +348,22 @@ function drawCake(){
   }
 
   // midterste etasje
+  ctx.fillStyle = cake.color;
   const topWidth=cake.width*0.6;
   const topHeight=cake.height*0.6;
   ctx.fillRect(cake.x-topWidth/2, cake.y-cake.height-topHeight, topWidth, topHeight);
   ctx.strokeRect(cake.x-topWidth/2, cake.y-cake.height-topHeight, topWidth, topHeight);
   drawCream(cake.x, cake.y - cake.height - topHeight, topWidth);
-  color:"#ffb6c1",
+  
 
   // øverste etasje
+  ctx.fillStyle = cake.color;
   const top2Width=cake.width*0.35;
   const top2Height=cake.height*0.5;
   ctx.fillRect(cake.x-top2Width/2, cake.y-cake.height-topHeight-top2Height, top2Width, top2Height);
   ctx.strokeRect(cake.x-top2Width/2, cake.y-cake.height-topHeight-top2Height, top2Width, top2Height);
   drawCream(cake.x, cake.y - cake.height - topHeight - top2Height, top2Width);
-  color:"#ffb6c1",
+  
 
   // jordbær
   for(let i=0;i<5;i++){
