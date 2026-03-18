@@ -419,6 +419,20 @@ cake.width,
 cake.height
 );
 
+// legg til tulipaner på nederste etasje
+ctx.font = "30px serif"; // størrelsen på emoji
+ctx.textAlign = "center"; // sentrerer emojien på x
+ctx.textBaseline = "bottom"; // baserer på bunnen av kaken
+
+const tulipCount = 6; // antall tulipaner
+const startX = cake.x - cake.width / 2 + cake.width / (tulipCount * 2); // start litt inn fra venstre
+const stepX = cake.width / tulipCount; // avstand mellom hver tulipan
+const y = cake.y; // bunnen av nederste etasje
+
+for(let i = 0; i < tulipCount; i++){
+    let x = startX + i * stepX;
+    ctx.fillText("🌷", x, y);
+  
 // krem nederst
 drawCream(
 cake.x,
