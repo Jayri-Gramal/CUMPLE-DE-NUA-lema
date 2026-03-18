@@ -381,6 +381,18 @@ cake.height
 const topWidth=cake.width*0.6;
 const topHeight=cake.height*0.6;
 
+ctx.fillStyle="white";
+
+for(let i=0;i<12;i++){
+ctx.fillRect(
+cake.x - cake.width/2 + i*(cake.width/12),
+cake.y - cake.height/2,
+6,
+12
+);
+}
+
+  
 ctx.fillStyle="#ff99cc";
 
 for(let i=0;i<10;i++){
