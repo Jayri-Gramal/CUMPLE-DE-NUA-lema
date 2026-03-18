@@ -384,11 +384,12 @@ function drawCake(){
     ctx.fillStyle="#40E0D0";
     ctx.fillRect(c.x-c.width/2, c.y-c.height, c.width, c.height);
     if(c.lit){
-      ctx.fillStyle="orange";
-      ctx.beginPath();
-      ctx.arc(c.x, c.y-c.height-5, 5, 0, Math.PI*2);
-      ctx.fill();
-    }
+    ctx.font = "20px serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+
+    ctx.fillText("🔥", c.x, c.y - c.height - 10);
+}
   });
 }
 </script>
