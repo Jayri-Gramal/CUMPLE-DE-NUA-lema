@@ -262,33 +262,50 @@ function showMessage(text){
 
 function spawnBalloons(){
   for(let i=0;i<12;i++){
+
     let b=document.createElement("div");
 
-b.style.position="absolute";
-b.style.width="25px";
-b.style.height="35px";
-b.style.borderRadius="50%";
-b.style.background=`hsl(${Math.random()*360},70%,60%)`;
+    b.style.position="absolute";
+    b.style.width="25px";
+    b.style.height="35px";
+    b.style.borderRadius="50%";
+    b.style.background=`hsl(${Math.random()*360},70%,60%)`;
 
-// LAG SNOR
-let string=document.createElement("div");
+    // startposisjon + animasjon
+    b.style.left=Math.random()*window.innerWidth+"px";
+    b.style.bottom="0px";
+    b.style.transition="bottom 6s linear";
 
-string.style.position="absolute";
-string.style.width="2px";
-string.style.height="30px";
-string.style.background="white";
+    // LAG SNOR
+    let string=document.createElement("div");
 
-// plasser snoren midt under ballongen
-string.style.left="50%";
-string.style.top="100%";
-string.style.transform="translateX(-50%)";
+    string.style.position="absolute";
+    string.style.width="2px";
+    string.style.height="30px";
+    string.style.background="white";
 
-// legg snoren inn i ballongen
-b.appendChild(string);
-    setTimeout(()=>{ b.style.bottom="120%"; },50);
-    setTimeout(()=>{ b.remove(); },6000);
+    string.style.left="50%";
+    string.style.top="100%";
+    string.style.transform="translateX(-50%)";
+
+    b.appendChild(string);
+
+    // VIKTIG: legg til i DOM
+    document.body.appendChild(b);
+
+    // start animasjon
+    setTimeout(()=>{
+      b.style.bottom="120%";
+    },50);
+
+    // fjern etterpå
+    setTimeout(()=>{
+      b.remove();
+    },6000);
+
   }
 }
+
 
 function spawnConfetti(){
   for(let i=0;i<50;i++){
