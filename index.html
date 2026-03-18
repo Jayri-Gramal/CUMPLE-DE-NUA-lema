@@ -360,23 +360,29 @@ c.remove();
 
 function drawCream(x, y, width){
 
-// hvit krem
+// HVIT krem topp
 ctx.fillStyle="white";
-ctx.fillRect(x - width/2, y, width, 20);
+ctx.fillRect(x - width/2, y, width, 25);
 
-// drypp
-ctx.fillStyle="#ff99cc";
+// STORE drypp (runde og lange)
+for(let i=0;i<width/40;i++){
 
-for(let i=0;i<width/30;i++){
-let dripX = x - width/2 + i*30;
+let dripX = x - width/2 + i*40;
+let dripLength = 20 + (i%2)*15; // varierer høyde
 
-ctx.fillRect(dripX, y, 15, 12 + (i%2)*8);
+// rund topp (ser mer ekte ut)
+ctx.beginPath();
+ctx.arc(dripX+10, y+25, 10, 0, Math.PI);
+ctx.fill();
+
+// selve dryppet
+ctx.fillRect(dripX, y+25, 20, dripLength);
 }
 
-// strøssel
+// STRØSSEL på toppen (på hvit krem)
 const colors=["red","blue","yellow","green","purple"];
 
-for(let i=0;i<40;i++){
+for(let i=0;i<50;i++){
 ctx.fillStyle=colors[Math.floor(Math.random()*colors.length)];
 
 ctx.beginPath();
