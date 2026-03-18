@@ -425,6 +425,24 @@ top2Width,
 top2Height
 );
 
+for(let i=0;i<5;i++){
+
+let x = cake.x - 80 + i*40;
+let y = cake.y - cake.height - topHeight - top2Height - 10;
+
+ctx.fillStyle="red";
+ctx.beginPath();
+ctx.arc(x, y, 8, 0, Math.PI*2);
+ctx.fill();
+
+// blad
+ctx.fillStyle="green";
+ctx.beginPath();
+ctx.arc(x, y-6, 5, 0, Math.PI);
+ctx.fill();
+
+}
+  
 candles.forEach(c=>{
 
 ctx.fillStyle="#ffffff";
