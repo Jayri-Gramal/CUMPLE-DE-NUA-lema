@@ -381,6 +381,19 @@ cake.height
 const topWidth=cake.width*0.6;
 const topHeight=cake.height*0.6;
 
+ctx.fillStyle="#ff99cc";
+
+for(let i=0;i<10;i++){
+let dripX = cake.x - cake.width/2 + i*(cake.width/10);
+let dripHeight = 10 + Math.random()*20;
+
+ctx.beginPath();
+ctx.arc(dripX, cake.y - cake.height, 10, 0, Math.PI, false);
+ctx.fill();
+
+ctx.fillRect(dripX-10, cake.y - cake.height, 20, dripHeight);
+}
+  
 ctx.fillRect(
 cake.x-topWidth/2,
 cake.y-cake.height-topHeight,
