@@ -317,7 +317,7 @@ function spawnBalloons(){
 
     // startposisjon + animasjon
     b.style.left=Math.random()*window.innerWidth+"px";
-    b.style.bottom="0px";
+   b.style.bottom = Math.random()*window.innerHeight + "px";
     b.style.transition="bottom 6s linear";
 
     // LAG SNOR
@@ -339,7 +339,7 @@ function spawnBalloons(){
 
     // start animasjon
     setTimeout(()=>{
-      b.style.bottom="120%";
+     b.style.bottom = (window.innerHeight + 200) + "px";
     },50);
 
     // fjern etterpå
