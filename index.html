@@ -292,19 +292,20 @@ s.style.top = scaledY + "px";
 }
 function blowOutCandles(){
 
+  // 1. skru av lys
   candles.forEach(c=>{
-
-    // lag røyk der flammen var
-    spawnSmoke(c.x, c.y - c.height);
-
-    c.lit=false;
-
+    c.lit = false;
   });
 
+  // 2. tegn kaken først
   drawScene();
 
-}
+  // 3. så lag røyk OPPÅ
+  candles.forEach(c=>{
+    spawnSmoke(c.x, c.y - c.height);
+  });
 
+}
 function drawScene(){
   ctx.clearRect(0,0,canvas.width,canvas.height);
 
