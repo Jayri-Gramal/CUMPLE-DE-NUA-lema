@@ -307,45 +307,45 @@ function showMessage(text){
 function spawnBalloons(){
   for(let i=0;i<12;i++){
 
-    let b=document.createElement("div");
-
-    b.style.position="absolute";
-    b.style.width="25px";
-    b.style.height="35px";
-    b.style.borderRadius="50%";
-    b.style.background=`hsl(${Math.random()*360},70%,60%)`;
-
-    // startposisjon + animasjon
-    b.style.left=Math.random()*window.innerWidth+"px";
-   b.style.bottom = Math.random()*window.innerHeight + "px";
-    b.style.transition="bottom 6s linear";
-
-    // LAG SNOR
-    let string=document.createElement("div");
-
-    string.style.position="absolute";
-    string.style.width="2px";
-    string.style.height="30px";
-    string.style.background="white";
-
-    string.style.left="50%";
-    string.style.top="100%";
-    string.style.transform="translateX(-50%)";
-
-    b.appendChild(string);
-
-    // VIKTIG: legg til i DOM
-    document.body.appendChild(b);
-
-    // start animasjon
     setTimeout(()=>{
-     b.style.bottom = (window.innerHeight + 200) + "px";
-    },50);
 
-    // fjern etterpå
-    setTimeout(()=>{
-      b.remove();
-    },6000);
+      let b=document.createElement("div");
+
+      b.style.position="absolute";
+      b.style.width="25px";
+      b.style.height="35px";
+      b.style.borderRadius="50%";
+      b.style.background=`hsl(${Math.random()*360},70%,60%)`;
+
+      // starter fra bunnen
+      b.style.left=Math.random()*window.innerWidth+"px";
+      b.style.bottom="0px";
+      b.style.transition="bottom 6s linear";
+
+      // SNOR
+      let string=document.createElement("div");
+      string.style.position="absolute";
+      string.style.width="2px";
+      string.style.height="30px";
+      string.style.background="white";
+      string.style.left="50%";
+      string.style.top="100%";
+      string.style.transform="translateX(-50%)";
+
+      b.appendChild(string);
+      document.body.appendChild(b);
+
+      // fly opp
+      setTimeout(()=>{
+        b.style.bottom="120%";
+      },50);
+
+      // fjern
+      setTimeout(()=>{
+        b.remove();
+      },6000);
+
+    }, Math.random()*2000); // tilfeldig starttid
 
   }
 }
