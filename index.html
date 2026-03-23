@@ -41,8 +41,7 @@ body{
   height:100%;
   pointer-events:none;
   z-index: 10;
-  <div class="bg-layer" id="bgLayer"></div>
-<div class="fg-layer" id="fgLayer"></div>
+  
 }
 #bg-layer{
   position:absolute;
@@ -74,6 +73,8 @@ Presiona la tecla espacio para encender las velas
 </div>
 
 <canvas id="cakeCanvas"></canvas>
+  <div class="bg-layer" id="bgLayer"></div>
+<div class="fg-layer" id="fgLayer"></div>
 
 <script>
 let started=false;
@@ -226,7 +227,7 @@ function startHeartFireworks(){
       p.style.top=(window.innerHeight*0.7)+"90px";
       p.style.fontSize="40px";
       p.style.transition="all 4s ease-out";
-      document.getElementById("bgLayer").appendChild(...)
+      document.getElementById("bgLayer").appendChild(p)
       let angle=Math.random()*Math.PI*2;
       let distance=700+Math.random()*700;
       let x=Math.cos(angle)*distance;
@@ -359,7 +360,7 @@ function spawnBalloons(){
       string.style.transform="translateX(-50%)";
 
       b.appendChild(string);
-      document.getElementById("bgLayer").appendChild(...)
+      document.getElementById("bgLayer").appendChild(b)
       // fly opp
       setTimeout(()=>{
         b.style.bottom="120%";
