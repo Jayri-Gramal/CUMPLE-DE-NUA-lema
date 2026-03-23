@@ -237,8 +237,10 @@ function showPhotos(){
   });
 }
 
-  function spawnSmoke(x, y){
-
+  spawnSmoke(
+  c.x,
+  c.y - c.height
+);
   for(let i=0;i<8;i++){
 
     let s=document.createElement("div");
@@ -249,8 +251,8 @@ function showPhotos(){
     s.style.borderRadius="50%";
     s.style.background="rgba(200,200,200,0.7)";
 
-    s.style.left=x+"px";
-    s.style.top=y+"px";
+    s.style.left = (x * cakeScale + canvas.width/2 - (canvas.width/2 * cakeScale)) + "px";
+s.style.top  = (y * cakeScale + canvas.height*0.6 - (canvas.height*0.6 * cakeScale)) + "px";
 
     s.style.transition="all 7s ease-out";
 
