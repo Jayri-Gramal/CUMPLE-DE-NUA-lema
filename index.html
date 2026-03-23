@@ -40,6 +40,7 @@ body{
   width:100%;
   height:100%;
   pointer-events:none;
+  z-index: 10;
 }
 </style>
 </head>
@@ -198,7 +199,7 @@ function startHeartFireworks(){
     for(let i=0;i<20;i++){
       let p=document.createElement("div");
       p.innerHTML="💖";
-      p.style.position="absolute";
+      p.style.zIndex = "1";
       p.style.left=(window.innerWidth/2)+"px";
       p.style.top=(window.innerHeight/2)+"px";
       p.style.fontSize="20px";
