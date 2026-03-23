@@ -246,6 +246,7 @@ function showPhotos(){
     s.style.position = "absolute";
     s.style.width = "10px";
     s.style.height = "10px";
+    p.style.zIndex = "1";
     s.style.borderRadius = "50%";
     s.style.background = "rgba(200,200,200,0.7)";
     s.style.left = x + "px";
@@ -409,6 +410,7 @@ function drawCake(){
   ctx.fillStyle=cake.color;
   ctx.strokeStyle=cake.borderColor;
   ctx.lineWidth=4;
+        p.style.zIndex = "2";
 
   // nederste etasje
   ctx.fillRect(cake.x-cake.width/2, cake.y-cake.height, cake.width, cake.height);
