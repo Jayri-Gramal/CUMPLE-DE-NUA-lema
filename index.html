@@ -235,8 +235,18 @@ function showPhotos(){
 }
 
 function blowOutCandles(){
-  candles.forEach(c=>{ c.lit=false; });
+
+  candles.forEach(c=>{
+
+    // lag røyk der flammen var
+    spawnSmoke(c.x, c.y - c.height);
+
+    c.lit=false;
+
+  });
+
   drawScene();
+
 }
 
 function drawScene(){
@@ -376,6 +386,41 @@ function drawCake(){
     let x = startX + i*stepX;
     ctx.fillText("🌷", x, y);
   }
+
+  function spawnSmoke(x, y){
+
+  for(let i=0;i<8;i++){
+
+    let s=document.createElement("div");
+
+    s.style.position="absolute";
+    s.style.width="10px";
+    s.style.height="10px";
+    s.style.borderRadius="50%";
+    s.style.background="rgba(200,200,200,0.7)";
+
+    s.style.left=x+"px";
+    s.style.top=y+"px";
+
+    s.style.transition="all 2s ease-out";
+
+    document.body.appendChild(s);
+
+    let offsetX = (Math.random()-0.5)*40;
+    let offsetY = -50 - Math.random()*50;
+
+    setTimeout(()=>{
+      s.style.transform=`translate(${offsetX}px,${offsetY}px) scale(2)`;
+      s.style.opacity="0";
+    },50);
+
+    setTimeout(()=>{
+      s.remove();
+    },2000);
+
+  }
+
+}
 
   // midterste etasje
   ctx.fillStyle = cake.color;
