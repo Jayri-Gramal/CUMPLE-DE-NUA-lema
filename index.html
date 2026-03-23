@@ -268,8 +268,11 @@ function showPhotos(){
     s.style.height = "10px";
     s.style.borderRadius = "50%";
     s.style.background = "rgba(200,200,200,0.7)";
-    s.style.left = x + "px";
-    s.style.top = y + "px";
+    let scaledX = (x - canvas.width/2) * cakeScale + canvas.width/2;
+let scaledY = (y - canvas.height*0.6) * cakeScale + canvas.height*0.6;
+
+s.style.left = scaledX + "px";
+s.style.top = scaledY + "px";
     s.style.transition = "all 2s ease-out";
 
     document.getElementById("fgLayer").appendChild(s);
