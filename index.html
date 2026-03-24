@@ -397,18 +397,21 @@ function spawnConfetti(){
   }
 }
 
-function drawCream(x, y, width){
-  ctx.fillStyle="white";
-  ctx.fillRect(x - width/2, y, width, 25);
+for(let i=0;i<width/40;i++){
 
-  for(let i=0;i<width/40;i++){
-    let dripX = x - width/2 + i*40;
-    let dripLength = 20 + (i%2)*15;
-    ctx.beginPath();
-    ctx.arc(dripX+10, y+25, 10, 0, Math.PI);
-    ctx.fill();
-    ctx.fillRect(dripX, y+25, 20, dripLength);
-  }
+  let dripX = x - width/2 + i*40;
+
+  // STOPPER hvis den går utenfor høyre kant
+  if(dripX + 20 > x + width/2) break;
+
+  let dripLength = 20 + (i%2)*15;
+
+  ctx.beginPath();
+  ctx.arc(dripX+10, y+25, 10, 0, Math.PI);
+  ctx.fill();
+
+  ctx.fillRect(dripX, y+25, 20, dripLength);
+}
 
   const colors=["red","blue","yellow","green","purple"];
   for(let i=0;i<50;i++){
