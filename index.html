@@ -446,7 +446,7 @@ function drawCake(){
   const tulipCount = 6;
   const startX = cake.x - cake.width/2 + cake.width/(tulipCount*2);
   const stepX = cake.width/tulipCount;
-  const y = cake.y;
+  const y = cake.y - 50;
   for(let i=0;i<tulipCount;i++){
     let x = startX + i*stepX;
     ctx.fillText("🌷", x, y);
