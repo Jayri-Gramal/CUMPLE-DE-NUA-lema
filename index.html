@@ -507,6 +507,9 @@ function drawCake(){
     ctx.font = "20px serif";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
+    ctx.style.zIndex = "10";
+      
+    document.getElementById("fgLayer").appendChild(s);
 
     ctx.fillText("🔥", c.x, c.y - c.height - 10);
 }
