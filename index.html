@@ -83,6 +83,9 @@ let finished=false;
 const canvas = document.getElementById("cakeCanvas");
 const ctx = canvas.getContext("2d");
 
+const stitchImg = new Image();
+stitchImg.src = "Stitch.png";
+
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
@@ -508,6 +511,15 @@ function drawCake(){
     ctx.fillText("🔥", c.x, c.y - c.height - 10);
 }
   });
+
+// STITCH PÅ TOPPEN
+ctx.drawImage(
+  stitchImg,
+  cake.x - 60,
+  cake.y - cake.height - 250,
+  120,
+  120
+);
 }
 
 
