@@ -499,6 +499,14 @@ function drawCake(){
     ctx.fill();
   }
 
+  // STITCH PÅ TOPPEN
+ctx.drawImage(
+  stitchImg,
+  cake.x - 93,
+  cake.y - cake.height - 330,
+  200,
+  200
+);
   // lys
   candles.forEach(c=>{
     ctx.fillStyle="#40E0D0";
@@ -512,15 +520,6 @@ function drawCake(){
     ctx.fillText("🔥", c.x, c.y - c.height - 10);
 }
   });
-
-// STITCH PÅ TOPPEN
-ctx.drawImage(
-  stitchImg,
-  cake.x - 93,
-  cake.y - cake.height - 330,
-  200,
-  200
-);
 }
 
 
