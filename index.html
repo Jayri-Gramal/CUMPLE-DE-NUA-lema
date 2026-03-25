@@ -180,8 +180,10 @@ document.getElementById("startButton").onclick=function(){
   document.getElementById("startButton").style.display="none";
   document.getElementById("instruction").style.opacity=1;
 
-  setupCandles(); // fyll lysene før tegning
+  setupCandles();
   drawScene();
+
+  startBlowDetection(); // 👈 HER la du den inn
 }
 
 // --------------------
@@ -506,6 +508,46 @@ function drawCake(){
     ctx.fillText("🔥", c.x, c.y - c.height - 10);
 }
   });
+}
+
+
+  async function startBlowDetection(){
+
+  try{
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    const audioContext = new AudioContext();
+    const mic = audioContext.createMediaStreamSource(stream);
+    const analyser = audioContext.createAnalyser();
+
+    mic.connect(analyser);
+
+    const data = new Uint8Array(analyser.fftSize);
+
+    function checkVolume(){
+      analyser.getByteTimeDomainData(data);
+
+      let sum = 0;
+      for(let i=0;i<data.length;i++){
+        let val = (data[i] - 128) / 128;
+        sum += val * val;
+      }
+
+      let volume = Math.sqrt(sum / data.length);
+
+      // 🔥 JUSTER DENNE VERDIEN
+      if(volume > 0.15 && !finished){
+        finished = true;
+        finalCelebration();
+      }
+
+      requestAnimationFrame(checkVolume);
+    }
+
+    checkVolume();
+
+  }catch(err){
+    console.log("Mikrofon funker ikke:", err);
+  }
 }
 </script>
 </body>
