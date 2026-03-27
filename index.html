@@ -257,60 +257,60 @@ function startHeartFireworks(){
 
 function showPhotos(){
 
-  const photos=[
+  const photos = [
     "hart.png","1.png","2.png","3.png","4.png","5.png",
     "6.png","7.png","8.png","9.png","10.png","11.png",
     "12.png","13.png","14.png","15.png","16.png","17.png",
     "18.png","19.png","20.png","21.png"
   ];
 
-  const imagesPerWave = 3;
-  const delayBetweenWaves = 2500; // tid mellom hver bølge
+  let index = 0;
 
-  for(let i = 0; i < photos.length; i += imagesPerWave){
+  function spawnRow(){
 
-    setTimeout(()=>{
+    // stopp når alle er vist
+    if(index >= photos.length) return;
 
-      for(let j = 0; j < imagesPerWave; j++){
+    for(let i=0; i<3; i++){
 
-        const index = i + j;
-        if(index >= photos.length) return;
+      if(index >= photos.length) break;
 
-        let img = document.createElement("img");
-        img.src = photos[index];
+      let img = document.createElement("img");
+      img.src = photos[index];
 
-        img.style.position = "absolute";
-        img.style.width = "180px";
+      img.style.position = "absolute";
+      img.style.width = "180px";
 
-        // 3 faste posisjoner (venstre, midt, høyre)
-        const positions = [
-          window.innerWidth * 0.25,
-          window.innerWidth * 0.5,
-          window.innerWidth * 0.75
-        ];
+      // 🔥 RANDOM STARTPOSISJON (men ikke helt ute av skjermen)
+      let startX = Math.random() * (window.innerWidth - 200);
+      img.style.left = startX + "px";
 
-        img.style.left = (positions[j] - 90) + "px";
-        img.style.bottom = "-200px";
+      // starter under skjermen
+      img.style.bottom = "-200px";
 
-        img.style.transition = "bottom 4s linear, opacity 4s";
+      // 🔥 SAKTERE BEVEGELSE
+      img.style.transition = "bottom 10s linear";
 
-        document.body.appendChild(img);
+      document.body.appendChild(img);
 
-        // start animasjon
-        setTimeout(()=>{
-          img.style.bottom = "120%"; // fly opp
-          img.style.opacity = "0";   // fade ut
-        },50);
+      // fly opp
+      setTimeout(()=>{
+        img.style.bottom = "110%";
+      }, 100);
 
-        // fjern etterpå
-        setTimeout(()=>{
-          img.remove();
-        },4000);
-      }
+      // fjern etterpå
+      setTimeout(()=>{
+        img.remove();
+      }, 10000);
 
-    }, (i / imagesPerWave) * delayBetweenWaves);
+      index++;
+    }
 
+    // 🔁 ny rad etter litt tid
+    setTimeout(spawnRow, 2000);
   }
+
+  spawnRow();
 }
 
    
