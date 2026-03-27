@@ -256,19 +256,49 @@ function startHeartFireworks(){
 }
 
 function showPhotos(){
-  const photos=["hart.png","1.png","2.png","3.png","4.png","5.png","6.png","7.png","8.png","9.png","10.png","11.png","12.png","13.png","14.png","15.png","16.png","17.png","18.png","19.png","20.png","21.png"];
-  photos.forEach((src)=>{
-    let img=document.createElement("img");
-    img.src=src;
-    img.style.position="absolute";
-    img.style.width="200px";
-    img.style.left=Math.random()*window.innerWidth+"px";
-    img.style.bottom="-200px";
-    img.style.transition="bottom 15s linear";
-    document.body.appendChild(img);
-    setTimeout(()=>{ img.style.bottom="120%"; },100);
+
+  const photos=[
+    "hart.png","1.png","2.png","3.png","4.png","5.png",
+    "6.png","7.png","8.png","9.png","10.png","11.png",
+    "12.png","13.png","14.png","15.png","16.png","17.png",
+    "18.png","19.png","20.png","21.png"
+  ];
+
+  const imagesPerRow = 3;
+  const delayBetweenRows = 2000; // 2 sek mellom hver rad
+
+  photos.forEach((src, index)=>{
+
+    const row = Math.floor(index / imagesPerRow);
+
+    setTimeout(()=>{
+
+      let img=document.createElement("img");
+      img.src=src;
+      img.style.position="absolute";
+      img.style.width="180px";
+
+      // plassering (3 per rad)
+      const col = index % imagesPerRow;
+
+      img.style.left = (window.innerWidth / 4 * (col+1) - 90) + "px";
+      img.style.bottom = "-200px";
+
+      img.style.transition="all 2s ease";
+
+      document.body.appendChild(img);
+
+      // fly opp
+      setTimeout(()=>{
+        img.style.bottom = (20 + row * 150) + "px";
+      },50);
+
+    }, row * delayBetweenRows);
+
   });
 }
+
+   
 
   function spawnSmoke(x, y){
 
