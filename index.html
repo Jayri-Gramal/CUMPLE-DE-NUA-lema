@@ -264,38 +264,53 @@ function showPhotos(){
     "18.png","19.png","20.png","21.png"
   ];
 
-  const imagesPerRow = 3;
-  const delayBetweenRows = 2000; // 2 sek mellom hver rad
+  const imagesPerWave = 3;
+  const delayBetweenWaves = 2500; // tid mellom hver bølge
 
-  photos.forEach((src, index)=>{
-
-    const row = Math.floor(index / imagesPerRow);
+  for(let i = 0; i < photos.length; i += imagesPerWave){
 
     setTimeout(()=>{
 
-      let img=document.createElement("img");
-      img.src=src;
-      img.style.position="absolute";
-      img.style.width="180px";
+      for(let j = 0; j < imagesPerWave; j++){
 
-      // plassering (3 per rad)
-      const col = index % imagesPerRow;
+        const index = i + j;
+        if(index >= photos.length) return;
 
-      img.style.left = (window.innerWidth / 4 * (col+1) - 90) + "px";
-      img.style.bottom = "-200px";
+        let img = document.createElement("img");
+        img.src = photos[index];
 
-      img.style.transition="all 2s ease";
+        img.style.position = "absolute";
+        img.style.width = "180px";
 
-      document.body.appendChild(img);
+        // 3 faste posisjoner (venstre, midt, høyre)
+        const positions = [
+          window.innerWidth * 0.25,
+          window.innerWidth * 0.5,
+          window.innerWidth * 0.75
+        ];
 
-      // fly opp
-      setTimeout(()=>{
-        img.style.bottom = (20 + row * 150) + "px";
-      },50);
+        img.style.left = (positions[j] - 90) + "px";
+        img.style.bottom = "-200px";
 
-    }, row * delayBetweenRows);
+        img.style.transition = "bottom 4s linear, opacity 4s";
 
-  });
+        document.body.appendChild(img);
+
+        // start animasjon
+        setTimeout(()=>{
+          img.style.bottom = "120%"; // fly opp
+          img.style.opacity = "0";   // fade ut
+        },50);
+
+        // fjern etterpå
+        setTimeout(()=>{
+          img.remove();
+        },4000);
+      }
+
+    }, (i / imagesPerWave) * delayBetweenWaves);
+
+  }
 }
 
    
