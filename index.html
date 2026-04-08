@@ -36,13 +36,12 @@ body{
 #instruction{
   position:absolute;
   left:50%;
-  top:40%; /* 🔥 juster denne hvis du vil høyere/lavere */
+  top:65%;
   transform:translate(-50%, -50%);
   font-size:30px;
   color:white;
   opacity:0;
   z-index:5;
-}
 
 #cakeCanvas{
   position:absolute;
@@ -193,7 +192,26 @@ function setupCandles(){
 document.getElementById("startButton").onclick=function(){
   started=true;
   document.getElementById("startButton").style.display="none";
-  document.getElementById("instruction").style.opacity=1;
+  document.getElementById("instruction").style.opacity=1; const instruction = document.getElementById("instruction");
+let scaleUp = true;
+
+const hopInterval = setInterval(() => {
+    if(scaleUp){
+        instruction.style.transform = "translate(-50%, 0) scale(1.1)";
+    } else {
+        instruction.style.transform = "translate(-50%, 0) scale(0.9)";
+    }
+    scaleUp = !scaleUp;
+}, 300);
+
+// Stop hop when first candle is lit
+document.addEventListener("keydown", function(e){
+    if(e.code==="Space" && firstPress){
+        clearInterval(hopInterval); // stopper hoppingen
+        instruction.style.opacity=0; // gjør teksten borte
+        firstPress=false;
+    }
+});
 
   setupCandles();
   drawScene();
