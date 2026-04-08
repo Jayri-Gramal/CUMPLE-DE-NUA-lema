@@ -90,6 +90,7 @@ Presiona la tecla espacio para encender las velas
 <script>
 let started=false;
 let finished=false;
+   let firstPress = true;
 
 const canvas = document.getElementById("cakeCanvas");
 const ctx = canvas.getContext("2d");
@@ -207,13 +208,20 @@ document.addEventListener("keydown",function(e){
   if(!started) return;
 
   if(e.code==="Space" && currentCandle < candles.length){
-    candles[currentCandle].lit=true;
-    drawScene();
-    showMessage(messages[currentCandle]);
-    spawnBalloons();
-    spawnConfetti();
-    currentCandle++;
+
+  // 🔥 skjul teksten første gang
+  if(firstPress){
+    document.getElementById("instruction").style.opacity = 0;
+    firstPress = false;
   }
+
+  candles[currentCandle].lit=true;
+  drawScene();
+  showMessage(messages[currentCandle]);
+  spawnBalloons();
+  spawnConfetti();
+  currentCandle++;
+}
   else if(e.code==="Space" && currentCandle===candles.length && !finished){
     finished=true;
     finalCelebration();
