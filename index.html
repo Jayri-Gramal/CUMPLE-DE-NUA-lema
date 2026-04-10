@@ -416,6 +416,7 @@ function showMessage(text){
   msg.style.color="white";
   msg.style.fontWeight="bold";
   msg.style.transition="top 3s";
+  msg.style.whiteSpace = "nowrap";
   document.body.appendChild(msg);
   setTimeout(()=>{ msg.style.top="20%"; },50);
   setTimeout(()=>{ msg.remove(); },6000);
