@@ -89,6 +89,8 @@ let started=false;
 let finished=false;
    let firstPress = true;
 
+  let canBlow = false; // 🔥 NY
+
 const canvas = document.getElementById("cakeCanvas");
 const ctx = canvas.getContext("2d");
 
@@ -238,10 +240,10 @@ document.addEventListener("keydown",function(e){
   spawnConfetti();
   currentCandle++;
 }
-  else if(e.code==="Space" && currentCandle===candles.length && !finished){
-    finished=true;
-    finalCelebration();
-  }
+  else if(e.code==="Space" && currentCandle===candles.length){
+  canBlow = true; // 🔥 nå kan man blåse
+}
+ 
 });
 
 // --------------------
@@ -628,7 +630,7 @@ ctx.drawImage(
       let volume = Math.sqrt(sum / data.length);
 
       // 🔥 JUSTER DENNE VERDIEN
-      if(volume > 0.15 && !finished){
+      if(volume > 0.15 && canBlow && !finished){
         finished = true;
         finalCelebration();
       }
