@@ -600,7 +600,11 @@ ctx.drawImage(
     ctx.textBaseline = "middle";
     
 
-    ctx.fillText("🔥", c.x, c.y - c.height - 10);
+    ctx.fillText(
+  "🔥",
+  c.x + (Math.random()*4 - 2),
+  c.y - c.height - 10 + (Math.random()*4 - 2)
+);
 }
   });
 }
