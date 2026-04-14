@@ -644,6 +644,30 @@ ctx.drawImage(
     console.log("Mikrofon funker ikke:", err);
   }
 }
+
+
+  let c = document.createElement("div");
+
+  c.style.position="absolute";
+  c.style.left=e.clientX+"px";
+  c.style.top=e.clientY+"px";
+  c.style.width="6px";
+  c.style.height="6px";
+  c.style.background=`hsl(${Math.random()*360},80%,60%)`;
+  c.style.borderRadius="50%";
+  c.style.pointerEvents="none";
+  c.style.transition="all 1s";
+
+  document.body.appendChild(c);
+
+  setTimeout(()=>{
+    c.style.transform="scale(2)";
+    c.style.opacity="0";
+  },50);
+
+  setTimeout(()=>c.remove(),1000);
+});
+  
 </script>
 </body>
 </html>
