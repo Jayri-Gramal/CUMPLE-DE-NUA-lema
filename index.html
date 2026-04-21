@@ -298,7 +298,10 @@ function showPhotos(){
   function spawnRow(){
 
     // stopp når alle er vist
-    if(index >= photos.length) return;
+    if(index >= photos.length){
+  setTimeout(showFinalMessage, 2000); // vent litt så det føles smooth
+  return;
+}
 
     for(let i=0; i<3; i++){
 
@@ -675,7 +678,41 @@ document.addEventListener("mousemove", function(e){
   setTimeout(()=>c.remove(),1000);
 
 });
-  
+
+function showFinalMessage(){
+
+  const msg = document.createElement("div");
+
+  msg.innerText = "🎉 Feliz cumpleaños 🎉";
+
+  msg.style.position = "absolute";
+  msg.style.left = "50%";
+  msg.style.top = "50%";
+  msg.style.transform = "translate(-50%, -50%)";
+  msg.style.fontSize = "120px";
+  msg.style.color = "white";
+  msg.style.fontWeight = "bold";
+  msg.style.zIndex = "20";
+  msg.style.textAlign = "center";
+
+  // samme font som resten (arves fra body, men vi setter eksplisitt)
+  msg.style.fontFamily = "'Dancing Script', cursive";
+  msg.style.textShadow = "0 0 20px white, 0 0 40px pink";
+
+  document.body.appendChild(msg);
+
+  // 🔥 bounce animasjon
+  let up = true;
+  setInterval(()=>{
+    if(up){
+      msg.style.transform = "translate(-50%, -55%) scale(1.05)";
+    }else{
+      msg.style.transform = "translate(-50%, -50%) scale(1)";
+    }
+    up = !up;
+  }, 500);
+}
+
 </script>
 </body>
 </html>
