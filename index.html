@@ -685,32 +685,28 @@ function showFinalMessage(){
 
   msg.innerText = "🎉 Feliz cumpleaños 🎉";
 
+  // 📍 SAMME POSISJON som de andre meldingene
   msg.style.position = "absolute";
   msg.style.left = "50%";
-  msg.style.top = "50%";
-  msg.style.transform = "translate(-50%, -50%)";
-  msg.style.fontSize = "120px";
+  msg.style.top = "20%"; // samme sluttposisjon som fly-meldingene
+  msg.style.transform = "translate(-50%, 0)";
+
+  // 🎨 SAMME STIL
+  msg.style.fontSize = "100px";
   msg.style.color = "white";
   msg.style.fontWeight = "bold";
+  msg.style.fontFamily = "'Dancing Script', cursive";
+
+  // 🚫 IKKE flere linjer
+  msg.style.whiteSpace = "nowrap";
+
+  // ✨ glow (valgfritt, men nice)
+  msg.style.textShadow = "0 0 20px white, 0 0 40px pink";
+
   msg.style.zIndex = "20";
   msg.style.textAlign = "center";
 
-  // samme font som resten (arves fra body, men vi setter eksplisitt)
-  msg.style.fontFamily = "'Dancing Script', cursive";
-  msg.style.textShadow = "0 0 20px white, 0 0 40px pink";
-
   document.body.appendChild(msg);
-
-  // 🔥 bounce animasjon
-  let up = true;
-  setInterval(()=>{
-    if(up){
-      msg.style.transform = "translate(-50%, -55%) scale(1.05)";
-    }else{
-      msg.style.transform = "translate(-50%, -50%) scale(1)";
-    }
-    up = !up;
-  }, 500);
 }
 
 </script>
